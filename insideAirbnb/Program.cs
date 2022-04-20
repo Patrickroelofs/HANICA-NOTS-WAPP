@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Tailwind;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,11 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+
+if (app.Environment.IsDevelopment())
+{
+    app.RunTailwind("tailwind", "./");
+}
 
 app.Run();
 
