@@ -1,0 +1,15 @@
+﻿@page "/"
+@inject IJSRuntime _jsRuntime
+
+<PageTitle>Index</PageTitle>
+
+<div id='mapBox' style='width: 100%; height: 500px;'></div>
+
+@code
+{
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        _jsRuntime.InvokeVoidAsync("mapbox.init");
+    }
+}
