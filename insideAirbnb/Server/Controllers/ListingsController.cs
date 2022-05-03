@@ -15,7 +15,7 @@ namespace insideAirbnb.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Listings>> Get()
+        public async Task<List<ListingsSummarized>> Get()
         {
             return await _listingRepository.getListings();
         }
