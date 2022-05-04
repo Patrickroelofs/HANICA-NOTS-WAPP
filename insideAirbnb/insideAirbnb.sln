@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32408.312
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "insideAirbnb.Server", "Server\insideAirbnb.Server.csproj", "{F3E4476B-0CAC-4CAE-8C2D-4CDD9CFA09AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "insideAirbnb.Server", "Server\insideAirbnb.Server.csproj", "{F3E4476B-0CAC-4CAE-8C2D-4CDD9CFA09AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "insideAirbnb.Client", "Client\insideAirbnb.Client.csproj", "{A0A2F35E-89BF-4649-881B-9D4737492ACC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "insideAirbnb.Client", "Client\insideAirbnb.Client.csproj", "{A0A2F35E-89BF-4649-881B-9D4737492ACC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "insideAirbnb.Shared", "Shared\insideAirbnb.Shared.csproj", "{77921A57-E8C7-4BA6-AD58-A89183BB17C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "insideAirbnb.Shared", "Shared\insideAirbnb.Shared.csproj", "{77921A57-E8C7-4BA6-AD58-A89183BB17C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

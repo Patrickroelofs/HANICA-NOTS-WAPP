@@ -1,0 +1,27 @@
+﻿@using System.Text.Json
+@using insideAirbnb.Client.Shared.Listings
+@using insideAirbnb.Shared;
+@inject IJSRuntime _jsRuntime
+@inject IHttpClientFactory _clientFactory
+@inject IConfiguration _configuration
+
+<div id='mapBox' style='width: 100%; height: 500px;'></div>
+
+@code
+{
+    private List<ListingsSummarized> listingsSummarized { get; set; }
+    private HttpClient Client { get; set; }
+
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        _jsRuntime.InvokeVoidAsync("mapbox.init");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Client = _clientFactory.CreateClient("Api");
+        listingsSummarized = await Client.GetFromJsonAsync<List<ListingsSummarized>>("listings");
+    }
+}

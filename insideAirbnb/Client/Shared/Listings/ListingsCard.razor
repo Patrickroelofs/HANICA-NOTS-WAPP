@@ -1,0 +1,9 @@
+﻿@using insideAirbnb.Shared;
+
+<p>@Data.Name</p>
+<p>@Data.Price</p>
+
+@code {
+    [Parameter]
+    public ListingsSummarized Data { get; set; }
+}

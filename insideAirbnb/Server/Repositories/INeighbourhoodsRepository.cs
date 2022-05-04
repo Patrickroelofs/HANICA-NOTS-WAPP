@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using insideAirbnb.Shared;
+using Microsoft.AspNetCore.Mvc;
 
 namespace insideAirbnb.Server.Repositories
 {

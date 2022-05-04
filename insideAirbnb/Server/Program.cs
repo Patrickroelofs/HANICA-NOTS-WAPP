@@ -1,3 +1,4 @@
+using insideAirbnb.Shared;
 using insideAirbnb.Server;
 using insideAirbnb.Server.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<insideAirbnbContext>(options =>
 {

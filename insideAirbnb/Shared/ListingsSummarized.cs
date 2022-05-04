@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace insideAirbnb.Server
+namespace insideAirbnb.Shared
 {
     public partial class ListingsSummarized
     {
