@@ -18,16 +18,16 @@ namespace insideAirbnb.Server.Controllers
             _listingRepository = listingsRepository;
         }
 
-        [HttpGet]
-        public async Task<List<ListingsSummarized>> Get()
+        [HttpGet("summarized")]
+        public async Task<List<ListingsSummarized>> GetAllSummarizedListings()
         {
-            return await _listingRepository.getListings();
+            return await _listingRepository.getSummarizedListings();
         }
 
         [HttpGet("geojson")]
-        public async Task<FeatureCollection> GetAll()
+        public async Task<FeatureCollection> GetGeoJSON()
         {
-            var listings = await _listingRepository.getListings();
+            var listings = await _listingRepository.getSummarizedListings();
             List<Feature> features = new();
             FeatureCollection featureCollection = new(features);
 

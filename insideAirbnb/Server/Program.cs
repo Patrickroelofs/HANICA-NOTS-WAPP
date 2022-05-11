@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Web;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
 
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddRazorPages();
@@ -21,6 +22,9 @@ builder.Services.AddDbContext<insideAirbnbContext>(options =>
 
 builder.Services.AddTransient<INeighbourhoodsRepository, NeighbourhoodsRepository>();
 builder.Services.AddScoped<IListingsRepository, ListingRepository>();
+
+builder.Services.AddOptions();
+builder.Services.Configure<OpenIdConnectOptions>(builder.Configuration.GetSection("AzureAdB2C"));
 
 
 var app = builder.Build();

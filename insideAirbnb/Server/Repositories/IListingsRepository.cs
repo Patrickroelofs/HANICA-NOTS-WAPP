@@ -5,6 +5,6 @@ namespace insideAirbnb.Server.Repositories
 {
     public interface IListingsRepository
     {
-        Task<List<ListingsSummarized>> getListings();
+        Task<List<ListingsSummarized>> getSummarizedListings();
     }
 }

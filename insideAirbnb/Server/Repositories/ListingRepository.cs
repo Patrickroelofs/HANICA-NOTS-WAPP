@@ -13,7 +13,7 @@ namespace insideAirbnb.Server.Repositories
             _context = context;
         }
 
-        public async Task<List<ListingsSummarized>> getListings()
+        public async Task<List<ListingsSummarized>> getSummarizedListings()
         {
             List<ListingsSummarized> list = await _context.Listings.Select(location => new ListingsSummarized
             {

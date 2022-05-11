@@ -18,10 +18,4 @@
         base.OnAfterRender(firstRender);
         _jsRuntime.InvokeVoidAsync("mapbox.init");
     }
-
-    protected override async Task OnInitializedAsync()
-    {
-        Client = _clientFactory.CreateClient("Api");
-        listingsSummarized = await Client.GetFromJsonAsync<List<ListingsSummarized>>("listings");
-    }
 }
