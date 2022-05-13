@@ -1,0 +1,9 @@
+﻿@using insideAirbnb.Shared
+
+<h2>@Listing.Name by <span>@Listing.HostName</span></h2>
+<p>$@Listing.Price per night, @Listing.MinimumNights min</p>
+
+@code {
+    [Parameter]
+    public Listings Listing { get; set; }
+}

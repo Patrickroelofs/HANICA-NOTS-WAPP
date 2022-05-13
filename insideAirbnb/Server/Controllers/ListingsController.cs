@@ -18,6 +18,20 @@ namespace insideAirbnb.Server.Controllers
             _listingRepository = listingsRepository;
         }
 
+        [HttpGet]
+        public async Task<List<Listings>> GetAllListings()
+        {
+            return await _listingRepository.getAllListings();
+        }
+
+        [HttpGet("id/{id:int}")]
+        public async Task <IActionResult> GetById(int id)
+        {
+            var listing = await _listingRepository.getById(id);
+            if (listing == null) return NotFound();
+            return Ok(listing);
+        }
+
         [HttpGet("summarized")]
         public async Task<List<ListingsSummarized>> GetAllSummarizedListings()
         {

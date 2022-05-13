@@ -1,0 +1,11 @@
+﻿@using insideAirbnb.Shared
+
+<div>
+    <h5>@Listing.Name</h5>
+    <p>@Listing.Price</p>
+</div>
+
+@code {
+    [Parameter]
+    public Listings Listing { get; set; }
+}

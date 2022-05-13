@@ -1,0 +1,13 @@
+﻿.box-around {
+    display: flex;
+}
+
+.sidebar {
+    max-width: 33.33%;
+    max-height: 500px;
+}
+
+.listings {
+    max-height: 500px;
+    overflow-y: scroll;
+}

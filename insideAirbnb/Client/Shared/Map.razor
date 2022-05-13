@@ -1,21 +1,67 @@
 ﻿@using System.Text.Json
-@using insideAirbnb.Client.Shared.Listings
 @using insideAirbnb.Shared;
 @inject IJSRuntime _jsRuntime
 @inject IHttpClientFactory _clientFactory
 @inject IConfiguration _configuration
 
-<div id='mapBox' style='width: 100%; height: 500px;'></div>
+<div class="box-around">
+    <div id='mapBox' style='width: 100%; height: 500px;'>
+        
+    </div>
+    <div class="sidebar">
+        <h1>Results</h1>
+        <div class="listings">
+            @foreach (var listing in listings) {
+                <ListingItem Listing="@listing" />
+            }
+        </div>
+    </div>
+
+</div>
+@if (listings.Count > 0)
+{
+    @if(selectedListing != null)
+    {
+        <SelectedListing Listing="@selectedListing" />
+    }
+}
 
 @code
 {
-    private List<ListingsSummarized> listingsSummarized { get; set; }
+    private DotNetObjectReference<Map> _reference;
+    private List<Listings> listings { get; set; }
+    private Listings selectedListing { get; set; }
     private HttpClient Client { get; set; }
 
-
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
-        base.OnAfterRender(firstRender);
-        _jsRuntime.InvokeVoidAsync("mapbox.init");
+        Client = _clientFactory.CreateClient("Api");
+        listings = new List<Listings>();
+        
+        if(Client != null)
+        {
+            listings = await Client.GetFromJsonAsync<List<Listings>>("listings");
+        }
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if(firstRender)
+        {
+            _reference = DotNetObjectReference.Create(this);
+            await _jsRuntime.InvokeVoidAsync("mapbox.init", _reference);
+        }
+    }
+
+    [JSInvokable]
+    public async Task PointClicked(int id)
+    {
+        Listings listing = await Client.GetFromJsonAsync<Listings>($"listings/id/{id}");
+
+        selectedListing = listing;
+        StateHasChanged();
     }
 }
