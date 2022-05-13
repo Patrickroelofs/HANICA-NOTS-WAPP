@@ -11,19 +11,11 @@
     <div class="sidebar">
         
     </div>
-
 </div>
-
-@if(selectedListing != null)
-{
-    <SelectedListing Listing="@selectedListing" />
-}
 
 @code
 {
     private DotNetObjectReference<Map> _reference;
-    private List<Listings> listings { get; set; }
-    private Listings selectedListing { get; set; }
     private HttpClient Client { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -40,14 +32,5 @@
             _reference = DotNetObjectReference.Create(this);
             await _jsRuntime.InvokeVoidAsync("mapbox.init", _reference);
         }
-    }
-
-    [JSInvokable]
-    public async Task PointClicked(int id)
-    {
-        Listings listing = await Client.GetFromJsonAsync<Listings>($"listings/id/{id}");
-
-        selectedListing = listing;
-        StateHasChanged();
     }
 }

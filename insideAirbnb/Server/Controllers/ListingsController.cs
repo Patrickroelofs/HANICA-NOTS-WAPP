@@ -47,7 +47,7 @@ namespace insideAirbnb.Server.Controllers
 
             foreach (var listing in listings)
             {
-                features.Add(new Feature(new Point(new Position(listing.Latitude, listing.Longitude)), new { listing.Id, listing.Name, listing.Price }));
+                features.Add(new Feature(new Point(new Position(listing.Latitude, listing.Longitude)), new { listing.Id, listing.Name, listing.Price, listing.HostName }));
             }
 
             return featureCollection;

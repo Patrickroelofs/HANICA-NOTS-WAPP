@@ -29,6 +29,7 @@ namespace insideAirbnb.Server.Repositories
                 Longitude = location.Longitude,
                 Name = location.Name,
                 Price = location.Price,
+                HostName = location.HostName,
             }).AsNoTracking().ToListAsync();
 
             return list;
