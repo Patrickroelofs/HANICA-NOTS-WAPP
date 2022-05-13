@@ -9,21 +9,14 @@
         
     </div>
     <div class="sidebar">
-        <h1>Results</h1>
-        <div class="listings">
-            @foreach (var listing in listings) {
-                <ListingItem Listing="@listing" />
-            }
-        </div>
+        
     </div>
 
 </div>
-@if (listings.Count > 0)
+
+@if(selectedListing != null)
 {
-    @if(selectedListing != null)
-    {
-        <SelectedListing Listing="@selectedListing" />
-    }
+    <SelectedListing Listing="@selectedListing" />
 }
 
 @code
@@ -36,13 +29,6 @@
     protected override async Task OnInitializedAsync()
     {
         Client = _clientFactory.CreateClient("Api");
-        listings = new List<Listings>();
-        
-        if(Client != null)
-        {
-            listings = await Client.GetFromJsonAsync<List<Listings>>("listings");
-        }
-
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

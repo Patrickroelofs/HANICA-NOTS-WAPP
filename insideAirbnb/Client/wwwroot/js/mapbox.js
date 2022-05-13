@@ -24,11 +24,26 @@
                     'circle-radius': 3,
                 }
             });
+            
+            map.addControl(new mapboxgl.NavigationControl());
 
-            map.on('click', 'points', function (e) {
+            const popup = new mapboxgl.Popup({
+                closeButton: false,
+                closeOnClick: false
+            })
+
+            map.on('mousemove', 'points', (e) => {
+                popup
+                    .setLngLat(e.features[0].geometry.coordinates)
+                    .setHTML(`<div class"mapboxpopup">${e.features[0].properties.Name}, <span class="bold">${e.features[0].properties.Price}<span></div>`)
+                    .addTo(map)
+                
+            });
+
+            map.on('click', 'points', (e) => {
                 const id = e.features[0].properties.Id;
                 dotnetReference.invokeMethodAsync("PointClicked", id);
-            });
+            })
 
             map.on('mouseenter', 'points', function () {
                 map.getCanvas().style.cursor = 'pointer';
@@ -36,6 +51,7 @@
 
             map.on('mouseleave', 'points', function () {
                 map.getCanvas().style.cursor = '';
+                popup.remove();
             });
         })
     },

@@ -5,13 +5,14 @@ using System.Collections.Generic;
 
 namespace insideAirbnb.Shared
 {
-    public partial class Reviews
+    public partial class Calendar
     {
         public long ListingId { get; set; }
-        public long Id { get; set; }
         public DateTime Date { get; set; }
-        public long ReviewerId { get; set; }
-        public string ReviewerName { get; set; }
-        public string Comments { get; set; }
+        public string Available { get; set; }
+        public string Price { get; set; }
+        public string AdjustedPrice { get; set; }
+        public int? MinimumNights { get; set; }
+        public int? MaximumNights { get; set; }
     }
 }

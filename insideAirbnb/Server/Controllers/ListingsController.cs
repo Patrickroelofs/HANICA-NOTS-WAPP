@@ -47,10 +47,7 @@ namespace insideAirbnb.Server.Controllers
 
             foreach (var listing in listings)
             {
-                listing.Latitude = Double.Parse(listing.Latitude.ToString().Insert(2, "."), CultureInfo.InvariantCulture);
-                listing.Longitude = Double.Parse(listing.Longitude.ToString().Insert(1, "."), CultureInfo.InvariantCulture);
-
-                features.Add(new Feature(new Point(new Position(listing.Latitude, listing.Longitude)), new { listing.Id }));
+                features.Add(new Feature(new Point(new Position(listing.Latitude, listing.Longitude)), new { listing.Id, listing.Name, listing.Price }));
             }
 
             return featureCollection;
