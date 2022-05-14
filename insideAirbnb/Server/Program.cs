@@ -14,6 +14,10 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
 
 builder.Services.AddControllers().AddNewtonsoftJson();
+
+// TODO: Re-add when improving performance
+//builder.Services.AddResponseCompression();
+
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<insideAirbnbContext>(options =>
 {
@@ -42,6 +46,9 @@ else
 }
 
 app.UseHttpsRedirection();
+
+// TODO: Re-add when improving performance
+//app.UseResponseCompression();
 
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
