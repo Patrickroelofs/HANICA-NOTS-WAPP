@@ -20,5 +20,13 @@ namespace insideAirbnb.Server.Controllers
         {
             return await _neighbourhoodsRepository.GetNeighbourhoods();
         }
+
+        [HttpGet("geojson")]
+        public async Task<ActionResult<dynamic>> getGeoJSON()
+        {
+            var bytes = System.IO.File.ReadAllBytes(@"neighbourhoods.geojson");
+
+            return File(bytes, "application/json", "neighbourhoods");
+        }
     }
 }

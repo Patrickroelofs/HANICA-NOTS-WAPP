@@ -14,16 +14,31 @@
                 cluster: false,
             });
 
+            map.addSource('neighbourhoods', {
+                type: 'geojson',
+                data: "https://localhost:7119/neighbourhoods/geojson",
+            })
+
             map.addLayer({
                 id: 'points',
                 type: 'circle',
                 filter: ['!', ['has', 'point_count']],
                 source: 'listings',
                 paint: {
-                    'circle-color': '#000',
+                    'circle-color': '#000000',
                     'circle-radius': 3,
                 }
             });
+
+            map.addLayer({
+                id: 'neighbourhoods',
+                type: 'fill',
+                source: 'neighbourhoods',
+                paint: {
+                    'fill-color': 'rgba(0, 0, 0, 0.05)',
+                    'fill-outline-color': 'rgba(0, 0, 0, 1)'
+                }
+            })
             
             map.addControl(new mapboxgl.NavigationControl());
 
