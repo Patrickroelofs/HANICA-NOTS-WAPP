@@ -41,14 +41,9 @@ namespace insideAirbnb.Server.Controllers
         }
 
         [HttpGet("geojson/filter")]
-        public async Task<FeatureCollection> GetGEOJsonNeighbourhoods(string neighbourhood)
-        {
-            if (neighbourhood == "")
-            {
-                return await GetGeoJSON();
-            }
-            
-            List<Geo> listings = await _listingRepository.GetGeoJSONListingsByNeighbourhood(neighbourhood);
+        public async Task<FeatureCollection> GetGEOJsonFilter([FromQuery] FilterParameters parameters)
+        {            
+            List<Geo> listings = await _listingRepository.GetGeoJSONListingsByNeighbourhood(parameters);
             return ConvertToGeoJSON.Convert(listings);
         }
     }

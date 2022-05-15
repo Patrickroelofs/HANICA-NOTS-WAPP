@@ -50,7 +50,7 @@
             map.on('mousemove', 'points', (e) => {
                 popup
                     .setLngLat(e.features[0].geometry.coordinates)
-                    .setHTML(`<div>${e.features[0].properties.Name} by ${e.features[0].properties.HostName} <span>${e.features[0].properties.Price}<span></div>`)
+                    .setHTML(`<div>${e.features[0].properties.Name} by ${e.features[0].properties.HostName} $<span>${e.features[0].properties.Price}<span></div>`)
                     .addTo(map)
                 
             });

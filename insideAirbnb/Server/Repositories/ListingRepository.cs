@@ -35,19 +35,44 @@ namespace insideAirbnb.Server.Repositories
             return list;
         }
 
-        public async Task<List<Geo>> GetGeoJSONListingsByNeighbourhood(string neighbourhood)
+        public async Task<List<Geo>> GetGeoJSONListingsByNeighbourhood(FilterParameters parameters)
         {
-            List<Geo> list = await _context.Listings.Where(listing => listing.NeighbourhoodCleansed == neighbourhood).Select(location => new Geo
+            IQueryable<Geo> listings = _context.Listings.Select(listing => new Geo
             {
-                HostName = location.HostName,
-                Id = location.Id,
-                Latitude = location.Latitude,
-                Longitude = location.Longitude,
-                Name = location.Name,
-                Price = location.Price,
-            }).ToListAsync();
+                HostName = listing.HostName,
+                Id = listing.Id,
+                Latitude = listing.Latitude,
+                Longitude = listing.Longitude,
+                Name = listing.Name,
+                Price = listing.Price,
+                Neighbourhood = listing.NeighbourhoodCleansed,
+                NumberOfReviews = listing.NumberOfReviews,
+            }); 
+            
+            if (!string.IsNullOrEmpty(parameters.Neighbourhood)) {
+                listings = listings.Where(listing => listing.Neighbourhood == parameters.Neighbourhood);
+            } 
 
-            return list;
+            if (parameters.PriceFrom.HasValue) { 
+                listings = listings.Where(listing => Convert.ToInt32(listing.Price) >= Convert.ToInt32(parameters.PriceFrom)); 
+            }
+
+            if (parameters.PriceTo.HasValue)
+            {
+                listings = listings.Where(listing => Convert.ToInt32(listing.Price) <= Convert.ToInt32(parameters.PriceTo));
+            }
+
+            if (parameters.ReviewsFrom.HasValue)
+            {
+                listings = listings.Where(listing => Convert.ToInt32(listing.NumberOfReviews) >= Convert.ToInt32(parameters.ReviewsFrom));
+            }
+
+            if(parameters.ReviewsTo.HasValue)
+            {
+                listings = listings.Where(listing => Convert.ToInt32(listing.NumberOfReviews) <= Convert.ToInt32(parameters.ReviewsTo));
+            }
+
+            return await listings.ToListAsync();
         }
 
         public async Task<Listings> getById(int id)

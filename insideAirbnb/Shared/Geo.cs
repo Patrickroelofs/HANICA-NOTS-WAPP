@@ -13,5 +13,7 @@ namespace insideAirbnb.Shared
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string Price { get; set; }
+        public string Neighbourhood { get; set; }
+        public int NumberOfReviews { get; set; }
     }
 }

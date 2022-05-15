@@ -8,6 +8,6 @@ namespace insideAirbnb.Server.Repositories
         Task<List<Listings>> getAllListings();
         Task<Listings> getById(int id);
         Task<List<Geo>> GetGeoJSONListings();
-        Task<List<Geo>> GetGeoJSONListingsByNeighbourhood(string neighbourhoods);
+        Task<List<Geo>> GetGeoJSONListingsByNeighbourhood(FilterParameters parameters);
     }
 }

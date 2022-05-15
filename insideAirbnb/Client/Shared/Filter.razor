@@ -24,28 +24,28 @@
         </div>
         <div class="form-row row">
             <div class="form-group col-md-6">
-                <label for="price-from-input">Price from</label>
-                <input id="price-from-input" class="form-control" placeholder="1"/>
+                <label for="price-from-input">Lowest Price</label>
+                <input id="price-from-input" class="form-control" placeholder="1" @bind="Parameters.PriceFrom" />
             </div>
             <div class="form-group col-md-6">
-                <label for="price-to-input">Price to</label>
-                <input id="price-to-input" class="form-control" placeholder="1000"/>
+                <label for="price-to-input">Highest Price</label>
+                <input id="price-to-input" class="form-control" placeholder="1000" @bind="Parameters.PriceTo" />
             </div>
         </div>
         <div class="form-row row">
             <div class="form-group col-md-6">
-                <label for="review-from-input">Review from</label>
-                <input id="review-from-input" class="form-control" placeholder="1" />
+                <label for="review-from-input">Lowest amount of Reviews</label>
+                <input id="review-from-input" class="form-control" placeholder="1" @bind="Parameters.ReviewsFrom" />
             </div>
             <div class="form-group col-md-6">
-                <label for="review-to-input">Review to</label>
-                <input id="review-to-input" class="form-control" placeholder="100" />
+                <label for="review-to-input">Highest amount of Reviews</label>
+                <input id="review-to-input" class="form-control" placeholder="100" @bind="Parameters.ReviewsTo" />
             </div>
         </div>
         <button
             type="submit"
             class="btn btn-primary col-md-3 filter-button"
-            @onclick="async () => await FilterNeighbourhoods(Parameters.Neighbourhood)"
+            @onclick="async () => await ListingsFilter(Parameters)"
             @onclick:preventDefault>
             Filter
         </button>
@@ -57,16 +57,30 @@
     public FilterParameters Parameters { get; set; } = new();
     private HttpClient Client { get; set; }
     private List<Neighbourhoods> NeighbourhoodsList { get; set; }
-    
+
     protected override async Task OnInitializedAsync()
     {
         Client = _clientFactory.CreateClient("Api");
         NeighbourhoodsList = await Client.GetFromJsonAsync<List<Neighbourhoods>>("/neighbourhoods");
     }
-    
-    private async Task FilterNeighbourhoods(string neighbourhood)
+
+    private async Task ListingsFilter(FilterParameters parameters)
     {
-        if(neighbourhood == "") await _jsRuntime.InvokeVoidAsync("mapbox.updateUrl", $"https://localhost:7119/listings/geojson");
-        await _jsRuntime.InvokeVoidAsync("mapbox.updateUrl", $"https://localhost:7119/listings/geojson/filter?neighbourhood={neighbourhood}");
+        await _jsRuntime.InvokeVoidAsync("mapbox.updateUrl", $"https://localhost:7119/listings/geojson/filter{CreateParameterString(parameters)}");
+    }
+
+    private string CreateParameterString(FilterParameters filters) {
+        string query = "";
+
+        if (!string.IsNullOrEmpty(filters.Neighbourhood)) {
+            query += $"?neighbourhood={filters.Neighbourhood}";
+        } else {
+            query += $"?neighbourhood=";
+        }
+
+        if (filters.PriceFrom.HasValue && filters.PriceTo.HasValue) query += $"&priceFrom={filters.PriceFrom}&priceTo={filters.PriceTo}";
+        if (filters.ReviewsFrom.HasValue && filters.ReviewsTo.HasValue) query += $"&reviewsFrom={filters.ReviewsFrom}&reviewsTo={filters.ReviewsTo}";
+
+        return query;
     }
 }
