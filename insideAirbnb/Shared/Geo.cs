@@ -2,17 +2,16 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace insideAirbnb.Shared
 {
-    public partial class ListingsSummarized
+    public partial class Geo
     {
-        public BigInteger Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
+        public string HostName { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string Price { get; set; }
-        public string HostName { get; set; }
     }
 }

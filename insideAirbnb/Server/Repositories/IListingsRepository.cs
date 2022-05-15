@@ -6,8 +6,8 @@ namespace insideAirbnb.Server.Repositories
     public interface IListingsRepository
     {
         Task<List<Listings>> getAllListings();
-        Task<List<ListingsSummarized>> getSummarizedListings();
-
         Task<Listings> getById(int id);
+        Task<List<Geo>> GetGeoJSONListings();
+        Task<List<Geo>> GetGeoJSONListingsByNeighbourhood(string neighbourhoods);
     }
 }

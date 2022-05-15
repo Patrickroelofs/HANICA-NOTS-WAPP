@@ -20,17 +20,32 @@ namespace insideAirbnb.Server.Repositories
             return list;
         }
 
-        public async Task<List<ListingsSummarized>> getSummarizedListings()
+        public async Task<List<Geo>> GetGeoJSONListings()
         {
-            List<ListingsSummarized> list = await _context.Listings.Select(location => new ListingsSummarized
+            List<Geo> list = await _context.Listings.Select(location => new Geo
             {
+                HostName = location.HostName,
                 Id = location.Id,
                 Latitude = location.Latitude,
                 Longitude = location.Longitude,
                 Name = location.Name,
                 Price = location.Price,
+            }).ToListAsync();
+
+            return list;
+        }
+
+        public async Task<List<Geo>> GetGeoJSONListingsByNeighbourhood(string neighbourhood)
+        {
+            List<Geo> list = await _context.Listings.Where(listing => listing.NeighbourhoodCleansed == neighbourhood).Select(location => new Geo
+            {
                 HostName = location.HostName,
-            }).AsNoTracking().ToListAsync();
+                Id = location.Id,
+                Latitude = location.Latitude,
+                Longitude = location.Longitude,
+                Name = location.Name,
+                Price = location.Price,
+            }).ToListAsync();
 
             return list;
         }

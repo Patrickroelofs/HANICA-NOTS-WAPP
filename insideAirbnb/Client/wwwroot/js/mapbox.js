@@ -1,5 +1,5 @@
 ﻿window.mapbox = {
-    init: (dotnetReference) => {
+    init: (dotnetReference, listingsURL, neighbourhoodsURL) => {
         mapboxgl.accessToken = 'pk.eyJ1IjoicGF0cmlja3JvZWxvZnMiLCJhIjoiY2wyN3k3MHR2MDQ1NjNrbDNxd3B4ZTliayJ9.pXSKWIwd8K__9fBqrz7BCw';
         map = new mapboxgl.Map({
             container: 'mapBox',
@@ -10,13 +10,13 @@
         map.on('load', () => {
             map.addSource('listings', {
                 type: 'geojson',
-                data: "https://localhost:7119/listings/geojson",
+                data: listingsURL,
                 cluster: false,
             });
 
             map.addSource('neighbourhoods', {
                 type: 'geojson',
-                data: "https://localhost:7119/neighbourhoods/geojson",
+                data: neighbourhoodsURL,
             })
 
             map.addLayer({
@@ -70,7 +70,7 @@
             });
         })
     },
-    updateData: url => {
+    updateUrl: url => {
         map.getSource('listings').setData(url);
     }
 }

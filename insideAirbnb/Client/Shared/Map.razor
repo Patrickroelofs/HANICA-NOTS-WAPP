@@ -6,14 +6,66 @@
 
 <div id='mapBox' style='width: 100%; height: 500px;'></div>
 
+<div class="listing-filters" id="listing-filters">
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="neighbourhood-select">Neighbourhood</label>
+                <select id="neighbourhood-select" class="custom-select form-control" @bind="Parameters.Neighbourhood">
+                    <option value="" selected>-- All Neighbourhoods --</option>
+                    @if (NeighbourhoodsList != null)
+                    {
+                        @foreach (var neighbourhood in NeighbourhoodsList)
+                        {
+                            <option value="@neighbourhood.Neighbourhood">@neighbourhood.Neighbourhood</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="price-from-input">Price from</label>
+                <input id="price-from-input" class="form-control" placeholder="1"/>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="price-to-input">Price to</label>
+                <input id="price-to-input" class="form-control" placeholder="567"/>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="review-from-input">Review from</label>
+                <input id="review-from-input" class="form-control" placeholder="1" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="review-to-input">Review to</label>
+                <input id="review-to-input" class="form-control" placeholder="100" />
+            </div>
+        </div>
+        <button
+            type="submit"
+            class="btn btn-primary float-right"
+            @onclick="async () => await FilterNeighbourhoods(Parameters.Neighbourhood)"
+            @onclick:preventDefault>
+            Filter
+        </button>
+    </form>
+</div>
+
+
 @code
 {
+    [Parameter]
+    public FilterParameters Parameters { get; set; } = new();
     private DotNetObjectReference<Map> _reference;
     private HttpClient Client { get; set; }
+    private List<Neighbourhoods> NeighbourhoodsList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         Client = _clientFactory.CreateClient("Api");
+        NeighbourhoodsList = await Client.GetFromJsonAsync<List<Neighbourhoods>>("/neighbourhoods");
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -23,7 +75,12 @@
         if(firstRender)
         {
             _reference = DotNetObjectReference.Create(this);
-            await _jsRuntime.InvokeVoidAsync("mapbox.init", _reference);
+            await _jsRuntime.InvokeVoidAsync("mapbox.init", _reference, "https://localhost:7119/listings/geojson", "https://localhost:7119/neighbourhoods/geojson");
         }
+    }
+
+    private async Task FilterNeighbourhoods(string neighbourhood)
+    {
+        await _jsRuntime.InvokeVoidAsync("mapbox.updateUrl", $"https://localhost:7119/listings/geojson/filter?neighbourhood={neighbourhood}");
     }
 }

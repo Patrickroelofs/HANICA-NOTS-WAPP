@@ -22,7 +22,7 @@ namespace insideAirbnb.Server.Controllers
         }
 
         [HttpGet("geojson")]
-        public async Task<ActionResult<dynamic>> getGeoJSON()
+        public ActionResult<dynamic> getGeoJSON()
         {
             var bytes = System.IO.File.ReadAllBytes(@"neighbourhoods.geojson");
 

@@ -18,6 +18,12 @@ namespace insideAirbnb.Server.Controllers
             _listingRepository = listingsRepository;
         }
 
+        [HttpGet]
+        public async Task<List<Listings>> getAll()
+        {
+            return await _listingRepository.getAllListings();
+        }
+
         [HttpGet("id/{id:int}")]
         public async Task <IActionResult> GetById(int id)
         {
@@ -26,16 +32,25 @@ namespace insideAirbnb.Server.Controllers
             return Ok(listing);
         }
 
-        [HttpGet("summarized")]
-        public async Task<List<ListingsSummarized>> GetAllSummarizedListings()
-        {
-            return await _listingRepository.getSummarizedListings();
-        }
-
         [HttpGet("geojson")]
         public async Task<FeatureCollection> GetGeoJSON()
         {
-            var listings = await _listingRepository.getSummarizedListings();
+            var listings = await _listingRepository.GetGeoJSONListings();
+            List<Feature> features = new();
+            FeatureCollection featureCollection = new(features);
+
+            foreach (var listing in listings)
+            {
+                features.Add(new Feature(new Point(new Position(listing.Latitude, listing.Longitude)), new { listing.Id, listing.Name, listing.Price, listing.HostName }));
+            }
+
+            return featureCollection;
+        }
+
+        [HttpGet("geojson/filter")]
+        public async Task<FeatureCollection> GetGEOJsonNeighbourhoods(string neighbourhood)
+        {
+            var listings = await _listingRepository.GetGeoJSONListingsByNeighbourhood(neighbourhood);
             List<Feature> features = new();
             FeatureCollection featureCollection = new(features);
 
