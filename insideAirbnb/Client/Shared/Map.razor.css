@@ -1,1 +1,11 @@
-﻿
+﻿.loginDisplay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: white;
+    z-index: 100;
+    margin-left: 12px;
+    margin-top: 12px;
+    padding: 4px;
+    border-radius: 6px;
+}

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using GeoJSON.Net.Feature;
 using GeoJSON.Net.Geometry;
 using System.Globalization;
+using insideAirbnb.Server.Helpers;
 
 namespace insideAirbnb.Server.Controllers
 {
@@ -35,31 +36,20 @@ namespace insideAirbnb.Server.Controllers
         [HttpGet("geojson")]
         public async Task<FeatureCollection> GetGeoJSON()
         {
-            var listings = await _listingRepository.GetGeoJSONListings();
-            List<Feature> features = new();
-            FeatureCollection featureCollection = new(features);
-
-            foreach (var listing in listings)
-            {
-                features.Add(new Feature(new Point(new Position(listing.Latitude, listing.Longitude)), new { listing.Id, listing.Name, listing.Price, listing.HostName }));
-            }
-
-            return featureCollection;
+            List<Geo> listings = await _listingRepository.GetGeoJSONListings();
+            return ConvertToGeoJSON.Convert(listings);
         }
 
         [HttpGet("geojson/filter")]
         public async Task<FeatureCollection> GetGEOJsonNeighbourhoods(string neighbourhood)
         {
-            var listings = await _listingRepository.GetGeoJSONListingsByNeighbourhood(neighbourhood);
-            List<Feature> features = new();
-            FeatureCollection featureCollection = new(features);
-
-            foreach (var listing in listings)
+            if (neighbourhood == "")
             {
-                features.Add(new Feature(new Point(new Position(listing.Latitude, listing.Longitude)), new { listing.Id, listing.Name, listing.Price, listing.HostName }));
+                return await GetGeoJSON();
             }
-
-            return featureCollection;
+            
+            List<Geo> listings = await _listingRepository.GetGeoJSONListingsByNeighbourhood(neighbourhood);
+            return ConvertToGeoJSON.Convert(listings);
         }
     }
 }

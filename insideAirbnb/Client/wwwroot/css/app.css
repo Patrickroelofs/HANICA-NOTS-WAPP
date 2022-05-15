@@ -38,3 +38,7 @@
 .blazor-error-boundary::after {
     content: "An error has occurred."
 }
+
+.mapboxgl-canvas-container {
+    height: 100vh;
+}

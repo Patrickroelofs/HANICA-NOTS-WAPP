@@ -68,6 +68,10 @@
                 map.getCanvas().style.cursor = '';
                 popup.remove();
             });
+
+            map.on('idle', function () {
+                map.resize()
+            })
         })
     },
     updateUrl: url => {

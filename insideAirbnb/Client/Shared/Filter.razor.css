@@ -1,0 +1,27 @@
+﻿.filters {
+    position:absolute;
+    bottom: 0;
+    left: 0;
+    background: white;
+    z-index: 100;
+    padding: 4px;
+    margin-bottom: 12px;
+    margin-left: 12px;
+    border-radius: 6px;
+}
+
+.filters h2 {
+    padding: 12px;
+}
+
+.filters label {
+    font-style: italic;
+}
+
+.filters .form-group {
+    margin-bottom: 2px;
+}
+
+.filter-button {
+    margin-top: 4px;
+}
