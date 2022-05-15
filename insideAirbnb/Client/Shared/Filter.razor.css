@@ -23,5 +23,7 @@
 }
 
 .filter-button {
-    margin-top: 4px;
+    float: right;
+    margin-top: 16px;
+    margin-bottom: 6px;
 }

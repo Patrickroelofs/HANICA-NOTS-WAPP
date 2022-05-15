@@ -4,8 +4,8 @@
         map = new mapboxgl.Map({
             container: 'mapBox',
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [4.902318081500600, 52.37851665631290],
-            zoom: 12,
+            center: [4.88, 52.36],
+            zoom: 11,
         });
         map.on('load', () => {
             map.addSource('listings', {

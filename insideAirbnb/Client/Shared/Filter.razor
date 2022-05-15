@@ -4,14 +4,14 @@
 @inject IHttpClientFactory _clientFactory
 @inject IConfiguration _configuration
 
-<div class="filters">
+<div class="filters shadow">
     <h2>Filter</h2>
     <form class="container">
         <div class="form-row">
             <div class="form-group col-md-12">
                 <label for="neighbourhood-select">Neighbourhood</label>
                 <select id="neighbourhood-select" class="custom-select form-control" @bind="Parameters.Neighbourhood">
-                    <option value="" selected>-- All Neighbourhoods --</option>
+                    <option value="" selected>All Neighbourhoods</option>
                     @if (NeighbourhoodsList != null)
                     {
                         @foreach (var neighbourhood in NeighbourhoodsList)
@@ -29,7 +29,7 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="price-to-input">Price to</label>
-                <input id="price-to-input" class="form-control" placeholder="567"/>
+                <input id="price-to-input" class="form-control" placeholder="1000"/>
             </div>
         </div>
         <div class="form-row row">
