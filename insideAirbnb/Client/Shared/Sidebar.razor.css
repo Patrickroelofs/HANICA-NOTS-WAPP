@@ -1,0 +1,51 @@
+﻿.sidebar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 550px;
+    height: auto;
+    background: white;
+    z-index: 100;
+    margin-top: 12px;
+    margin-right: 48px;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+.sidebar-host {
+    margin-top: 12px;
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    width: 100%;
+}
+
+.host {
+    font-weight: bold;
+}
+
+.about {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    padding-right: 12px;
+}
+
+.sidebar-host > .hostname {
+    align-self: center;
+    width: 75%;
+}
+
+.sidebar-host > .image {
+    width: 25%;
+    height: auto;
+}
+
+.price {
+    margin-top: 12px;
+    margin-bottom: 16px;
+    font-size: 32px;
+}

@@ -11,12 +11,19 @@
 <div id='mapBox'></div>
 <Filter></Filter>
 
+@if(ShowSelectedListing && SelectedListing != null)
+{
+    <Sidebar SelectedListing="@SelectedListing" BackButton="@HandleBackButton"></Sidebar>
+}
+
 @code
 {
     [Parameter]
     public FilterParameters Parameters { get; set; } = new();
     private DotNetObjectReference<Map> _reference;
     private HttpClient Client { get; set; }
+    public bool ShowSelectedListing;
+    public Listings SelectedListing; 
 
     protected override async Task OnInitializedAsync()
     {
@@ -34,4 +41,19 @@
         }
     }
 
+    [JSInvokable]
+    public async Task PointClicked(int id)
+    {
+        var listing = await Client.GetFromJsonAsync<Listings>($"/listings/id/{id}");
+        SelectedListing = listing;
+        ShowSelectedListing = true;
+        StateHasChanged();
+    }
+
+    private void HandleBackButton()
+    {
+        SelectedListing = null;
+        ShowSelectedListing = false;
+        StateHasChanged();
+    }
 }

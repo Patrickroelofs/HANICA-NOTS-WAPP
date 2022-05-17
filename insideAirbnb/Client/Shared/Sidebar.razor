@@ -1,0 +1,45 @@
+﻿@using insideAirbnb.Shared
+
+
+<div class="sidebar">
+    <button type="button" class="btn btn-primary backbutton" onclick="@BackButton"><i class="bi bi-chevron-left"></i>Back</button>
+
+    <h2>@SelectedListing.Name</h2>
+    <div>
+        <a href="@SelectedListing.ListingUrl" target="_blank">View Listing on Airbnb</a>
+        
+        <a href="@SelectedListing.HostUrl" target="_blank" class="sidebar-host">
+            <div class="hostname">
+                <span class="host">@SelectedListing.HostName</span>
+                <p class="about">@SelectedListing.HostAbout</p>
+            </div>
+
+            <div class="image">
+                <img width="100%" height="auto" src="@SelectedListing.HostPictureUrl" />
+            </div>
+        </a>
+        
+        <p class="price">$@SelectedListing.Price per night</p>
+
+
+        <h2>Graphs</h2>
+        <AuthorizeView>
+            <Authorized>
+                
+            </Authorized>
+            <NotAuthorized>
+                <p>You are not authorized to view graphs, please login.</p>
+            </NotAuthorized>
+        </AuthorizeView>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public bool ShowSelectedListing { get; set; }
+    [Parameter]
+    public Listings SelectedListing { get; set; }
+    [Parameter]
+    public Action BackButton { get; set; }
+}
