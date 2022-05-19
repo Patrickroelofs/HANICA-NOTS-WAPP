@@ -1,5 +1,5 @@
 ﻿@using insideAirbnb.Shared
-
+@inject IHttpClientFactory _clientFactory
 
 <div class="sidebar">
     <button type="button" class="btn btn-primary backbutton" onclick="@BackButton"><i class="bi bi-chevron-left"></i>Back</button>
@@ -42,4 +42,13 @@
     public Listings SelectedListing { get; set; }
     [Parameter]
     public Action BackButton { get; set; }
+    
+    private HttpClient Client { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Client = _clientFactory.CreateClient("ApiAuth");
+
+        var listing = await Client.GetFromJsonAsync<Listings>($"/graph");
+    }
 }

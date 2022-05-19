@@ -3,23 +3,10 @@ using insideAirbnb.Server;
 using insideAirbnb.Server.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Web;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// TODO: Re-add when improving performance -> disabled for HTTPS security reasons
-//builder.Services.AddResponseCompression(options =>
-//{
-//    options.EnableForHttps = true;
-//    options.Providers.Add<GzipCompressionProvider>();
-//});
-
-// Add services to the container.
-builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
 
 builder.Services.AddControllers().AddNewtonsoftJson();
 
@@ -33,13 +20,8 @@ builder.Services.AddTransient<INeighbourhoodsRepository, NeighbourhoodsRepositor
 builder.Services.AddScoped<IListingsRepository, ListingRepository>();
 
 builder.Services.AddOptions();
-builder.Services.Configure<OpenIdConnectOptions>(builder.Configuration.GetSection("AzureAdB2C"));
-
 
 var app = builder.Build();
-
-// TODO: Re-add when improving performance -> disabled for HTTPS security reasons
-//app.UseResponseCompression();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -60,8 +42,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
-app.UseAuthorization();
+//app.UseAuthentication();
+//app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();

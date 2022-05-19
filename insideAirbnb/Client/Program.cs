@@ -14,7 +14,8 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().Cre
 
 builder.Services.AddMsalAuthentication(options =>
 {
-    builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);
+
+    builder.Configuration.Bind("AzureAd", options.ProviderOptions.Authentication);
 });
 
 await builder.Build().RunAsync();
