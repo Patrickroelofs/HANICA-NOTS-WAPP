@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using insideAirbnb.Server.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace insideAirbnb.Server.Controllers
 {
@@ -6,7 +7,7 @@ namespace insideAirbnb.Server.Controllers
     [Route("[controller]")]
     public class GraphController : ControllerBase
     {
-        private IGraphRepository _graphRepository { get;  } _listingRepository { get; }
+        private IGraphRepository _graphRepository { get;  }
 
         public GraphController(IGraphRepository graphRepository)
         {

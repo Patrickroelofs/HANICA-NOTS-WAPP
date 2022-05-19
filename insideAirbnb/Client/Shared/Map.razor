@@ -37,7 +37,12 @@
         if(firstRender)
         {
             _reference = DotNetObjectReference.Create(this);
-            await _jsRuntime.InvokeVoidAsync("mapbox.init", _reference, "https://localhost:7119/listings/geojson", "https://localhost:7119/neighbourhoods/geojson");
+            await _jsRuntime.InvokeVoidAsync(
+                "mapbox.init", 
+                _reference, 
+                $"{_configuration["apiUrl"]}/listings/geojson", 
+                $"{_configuration["apiUrl"]}/neighbourhoods/geojson"
+            );
         }
     }
 
