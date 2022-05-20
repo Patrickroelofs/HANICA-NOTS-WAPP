@@ -1,17 +1,18 @@
 ﻿using insideAirbnb.Server.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace insideAirbnb.Server.Controllers
 {
+    [Authorize(Roles = "administrator")]
     [ApiController]
     [Route("[controller]")]
     public class GraphController : ControllerBase
     {
-        private IGraphRepository _graphRepository { get;  }
-
-        public GraphController(IGraphRepository graphRepository)
+        [HttpGet]
+        public IActionResult get()
         {
-            _graphRepository = graphRepository;
+            return Ok("Hello World");
         }
     }
 }

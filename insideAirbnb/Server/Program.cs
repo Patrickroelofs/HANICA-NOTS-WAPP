@@ -1,6 +1,8 @@
 using insideAirbnb.Shared;
 using insideAirbnb.Server.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,15 @@ builder.Services.AddDbContext<insideAirbnbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddMicrosoftIdentityWebApi(options =>
+        {
+            builder.Configuration.Bind("AzureAd", options);
+            options.TokenValidationParameters.RoleClaimType =
+                "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
+        },
+        options => { builder.Configuration.Bind("AzureAd", options); });
 
 builder.Services.AddTransient<INeighbourhoodsRepository, NeighbourhoodsRepository>();
 builder.Services.AddScoped<IListingsRepository, ListingRepository>();
@@ -38,6 +49,9 @@ app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
