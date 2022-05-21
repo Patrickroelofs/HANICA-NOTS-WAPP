@@ -3,6 +3,7 @@ using insideAirbnb.Server.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
+using insideAirbnb.Server.Repositories.interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

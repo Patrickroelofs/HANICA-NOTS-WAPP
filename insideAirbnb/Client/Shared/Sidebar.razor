@@ -21,15 +21,10 @@
         
         <p class="price">$@SelectedListing.Price per night</p>
 
-
-        <h2>Graphs</h2>
-        <AuthorizeView >
+        <AuthorizeView Roles="administrator">
             <Authorized>
-                <p>Your Authorized...</p>
+                <Graphs />
             </Authorized>
-            <NotAuthorized>
-                <p>You are not authorized to view graphs, please login.</p>
-            </NotAuthorized>
         </AuthorizeView>
     </div>
 </div>
@@ -42,14 +37,4 @@
     public Listings SelectedListing { get; set; }
     [Parameter]
     public Action BackButton { get; set; }
-
-        
-    private HttpClient Client { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        Client = _clientFactory.CreateClient("Api");
-
-        var listing = await Client.GetFromJsonAsync<Listings>($"/graph");
-    }
 }

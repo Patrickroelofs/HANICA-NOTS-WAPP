@@ -1,10 +1,10 @@
 ﻿using insideAirbnb.Shared;
-using insideAirbnb.Server.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using GeoJSON.Net.Feature;
 using GeoJSON.Net.Geometry;
 using System.Globalization;
 using insideAirbnb.Server.Helpers;
+using insideAirbnb.Server.Repositories.interfaces;
 
 namespace insideAirbnb.Server.Controllers
 {

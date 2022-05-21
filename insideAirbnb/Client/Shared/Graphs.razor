@@ -1,0 +1,15 @@
+﻿@using insideAirbnb.Shared
+@inject IHttpClientFactory _clientFactory
+
+<h3>Graphs</h3>
+
+@code {
+    private HttpClient Client { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Client = _clientFactory.CreateClient("ApiAuth");
+
+        var listing = await Client.GetFromJsonAsync<Listings>($"/graph");
+    }
+}

@@ -66,7 +66,7 @@
 
     private async Task ListingsFilter(FilterParameters parameters)
     {
-        await _jsRuntime.InvokeVoidAsync("mapbox.updateUrl", $"https://localhost:7119/listings/geojson/filter{CreateParameterString(parameters)}");
+        await _jsRuntime.InvokeVoidAsync("mapbox.updateUrl", $"{_configuration["apiUrl"]}/listings/geojson/filter{CreateParameterString(parameters)}");
     }
 
     private string CreateParameterString(FilterParameters filters) {

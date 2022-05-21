@@ -1,4 +1,5 @@
-﻿using insideAirbnb.Shared;
+﻿using insideAirbnb.Server.Repositories.interfaces;
+using insideAirbnb.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -77,9 +78,7 @@ namespace insideAirbnb.Server.Repositories
 
         public async Task<Listings> getById(int id)
         {
-            Listings listing = await _context.Listings.Where(location => location.Id == id).Select(location => location).AsNoTracking().FirstOrDefaultAsync();
-
-            return listing;
+            return await _context.Listings.Where(location => location.Id == id).Select(location => location).FirstOrDefaultAsync();
         }
     }
 }
