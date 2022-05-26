@@ -1,0 +1,55 @@
+﻿@page "/admin"
+@using Microsoft.AspNetCore.Authorization
+@using insideAirbnb.Shared
+@inject IJSRuntime _jsRuntime
+@inject IHttpClientFactory _clientFactory
+@attribute [Authorize]
+@attribute [Authorize(Roles = "administrator")]
+
+<h1>Admin</h1>
+
+<div class="container graphs">
+    <div class="row">
+        <div class="col-6">
+            <h5>Average price of all listings</h5>
+            <canvas id="neighbourhoodsGraph"></canvas>
+        </div>
+        <div class="col-6">
+            <h5>Amount of reviews over time</h5>
+            <canvas id="reviewsGraph"></canvas>
+        </div>
+        <div class="col-6">
+            <h5>Amount of listings for top 20 property types</h5>
+            <canvas id="propertyGraph"></canvas>
+        </div>
+        <div class="col-6">
+            <h5>Amount of listings with room type</h5>
+            <canvas id="roomGraph"></canvas>
+        </div>
+    </div>
+</div>
+
+@code {
+    private GraphNeighbourhoods? _graphNeighbourhoods { get; set; }
+    private GraphProperties? _graphProperties { get; set; }
+    private GraphRooms? _graphRooms { get; set; }
+    private GraphReviews? _graphReviews { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            var client = _clientFactory.CreateClient("ApiAuth");
+
+            _graphNeighbourhoods = await client.GetFromJsonAsync<GraphNeighbourhoods>("/graph/neighbourhoods");
+            _graphProperties = await client.GetFromJsonAsync<GraphProperties>("/graph/property-types");
+            _graphRooms = await client.GetFromJsonAsync<GraphRooms>("/graph/room-types");
+            _graphReviews = await client.GetFromJsonAsync<GraphReviews>("/graph/reviews");
+
+            await _jsRuntime.InvokeVoidAsync("setGraph.neighbourhoods", _graphNeighbourhoods);
+            await _jsRuntime.InvokeVoidAsync("setGraph.reviews", _graphReviews);
+            await _jsRuntime.InvokeVoidAsync("setGraph.property", _graphProperties);
+            await _jsRuntime.InvokeVoidAsync("setGraph.room", _graphRooms);
+        }
+    }
+}

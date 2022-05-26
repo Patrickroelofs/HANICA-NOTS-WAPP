@@ -1,0 +1,18 @@
+﻿.graphs {
+    height: 500px;
+}
+
+#neighbourhoodsGraph {
+    width: 400px;
+    height: 400px;
+}
+
+h1 {
+    margin-top: 32px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.col-6 {
+    margin-bottom: 36px;
+}

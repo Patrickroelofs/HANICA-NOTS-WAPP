@@ -9,5 +9,8 @@ namespace insideAirbnb.Server.Repositories.interfaces
         Task<Listings> getById(int id);
         Task<List<Geo>> GetGeoJSONListings();
         Task<List<Geo>> GetGeoJSONListingsByNeighbourhood(FilterParameters parameters);
+        Task<int> GetAveragePriceByNeighbourhood(string neighbourhood);
+        Task<GraphProperties> GetAmountPropertyTypes();
+        Task<GraphRooms> GetAmountRoomTypes();
     }
 }

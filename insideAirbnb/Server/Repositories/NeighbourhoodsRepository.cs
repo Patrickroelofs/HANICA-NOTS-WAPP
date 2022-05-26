@@ -17,7 +17,7 @@ namespace insideAirbnb.Server.Repositories
         public async Task<List<Neighbourhoods>> GetNeighbourhoods()
         {
             List<Neighbourhoods> list = await Task.Run(() => _context.Neighbourhoods
-            .Select(n => new Neighbourhoods { Neighbourhood = n.Neighbourhood }).ToListAsync());
+            .Select(n => new Neighbourhoods { Neighbourhood = n.Neighbourhood }).AsNoTracking().ToListAsync());
 
             return list;
         }
