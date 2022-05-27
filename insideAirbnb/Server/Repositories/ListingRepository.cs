@@ -1,5 +1,4 @@
-﻿using insideAirbnb.Server.Cache;
-using insideAirbnb.Server.Repositories.interfaces;
+﻿using insideAirbnb.Server.Repositories.interfaces;
 using insideAirbnb.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,23 +10,15 @@ namespace insideAirbnb.Server.Repositories
     public class ListingRepository : IListingsRepository
     {
         private readonly insideAirbnbContext _context;
-        private readonly ICache _cache;
 
-        public ListingRepository(insideAirbnbContext context, ICache cache)
+        public ListingRepository(insideAirbnbContext context)
         {
             _context = context;
-            _cache = cache;
         }
 
         public async Task<List<Listings>> getAllListings()
         {
-            if(_cache.ListingCacheExists())
-            {
-                return _cache.getListingsCache();
-            }
-            
             List<Listings> list = await _context.Listings.Where(location => location.Id != null).Select(location => location).AsNoTracking().ToListAsync();
-            _cache.setListingsCache(list);
             
             return list;
         }

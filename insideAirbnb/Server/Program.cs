@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 using StackExchange.Redis;
 using insideAirbnb.Server.Repositories.interfaces;
-using insideAirbnb.Server.Cache;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,10 +29,6 @@ builder.Services.AddScoped<INeighbourhoodsRepository, NeighbourhoodsRepository>(
 builder.Services.AddScoped<IListingsRepository, ListingRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<ICalendarRepository, CalendarRepository>();
-
-builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("RedisConnection")));
-builder.Services.AddScoped<ICache, Cache>();
-
 builder.Services.AddOptions();
 
 
