@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 using StackExchange.Redis;
 using insideAirbnb.Server.Repositories.interfaces;
+using insideAirbnb.Server.Cache;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,9 +26,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         },
         options => { builder.Configuration.Bind("AzureAd", options); });
 
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
+});
+
 builder.Services.AddScoped<INeighbourhoodsRepository, NeighbourhoodsRepository>();
 builder.Services.AddScoped<IListingsRepository, ListingRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddSingleton<IResponseCacheService, ResponseCacheService>();
 builder.Services.AddOptions();
 
 

@@ -5,6 +5,7 @@ using GeoJSON.Net.Geometry;
 using System.Globalization;
 using insideAirbnb.Server.Helpers;
 using insideAirbnb.Server.Repositories.interfaces;
+using insideAirbnb.Server.Cache;
 
 namespace insideAirbnb.Server.Controllers
 {
@@ -20,12 +21,14 @@ namespace insideAirbnb.Server.Controllers
         }
 
         [HttpGet]
+        [Cached(600)]
         public async Task<List<Listings>> getAll()
         {
             return await _listingRepository.getAllListings();
         }
 
         [HttpGet("id/{id:int}")]
+        [Cached(600)]
         public async Task <IActionResult> GetById(int id)
         {
             var listing = await _listingRepository.getById(id);
@@ -34,6 +37,7 @@ namespace insideAirbnb.Server.Controllers
         }
 
         [HttpGet("geojson")]
+        [Cached(600)]
         public async Task<FeatureCollection> GetGeoJSON()
         {
             List<Geo> listings = await _listingRepository.GetGeoJSONListings();

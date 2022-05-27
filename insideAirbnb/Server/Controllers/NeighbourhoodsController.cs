@@ -1,6 +1,7 @@
 ﻿using insideAirbnb.Shared;
 using Microsoft.AspNetCore.Mvc;
 using insideAirbnb.Server.Repositories.interfaces;
+using insideAirbnb.Server.Cache;
 
 namespace insideAirbnb.Server.Controllers
 {
@@ -16,12 +17,14 @@ namespace insideAirbnb.Server.Controllers
         }
 
         [HttpGet]
+        [Cached(600)]
         public async Task<List<Neighbourhoods>> get()
         {
             return await _neighbourhoodsRepository.GetNeighbourhoods();
         }
 
         [HttpGet("geojson")]
+        [Cached(600)]
         public ActionResult<dynamic> getGeoJSON()
         {
             var bytes = System.IO.File.ReadAllBytes(@"neighbourhoods.geojson");
