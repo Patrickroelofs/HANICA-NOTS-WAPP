@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
+using static insideAirbnb.Shared.GraphProperties;
+using static insideAirbnb.Shared.GraphRooms;
 
 namespace insideAirbnb.Server.Repositories
 {
@@ -18,7 +20,7 @@ namespace insideAirbnb.Server.Repositories
 
         public async Task<List<Listings>> getAllListings()
         {
-            List<Listings> list = await _context.Listings.Where(location => location.Id != null).Select(location => location).AsNoTracking().ToListAsync();
+            List<Listings> list = await _context.Listings.Select(location => location).AsNoTracking().ToListAsync();
             
             return list;
         }
@@ -89,22 +91,6 @@ namespace insideAirbnb.Server.Repositories
                 .Average(c => Convert.ToInt32(c.Price));
 
             return (int)averagePrice;
-        }
-
-        public record PropertyRecord(string PropertyType, int count)
-        {
-            public override string ToString()
-            {
-                return $"{{ PropertyType = {PropertyType}, Count = {count} }}";
-            }
-        }
-
-        public record RoomRecord(string RoomType, int count)
-        {
-            public override string ToString()
-            {
-                return $"{{ RoomType = {RoomType}, Count = {count} }}";
-            }
         }
 
         public async Task<GraphProperties> GetAmountPropertyTypes()

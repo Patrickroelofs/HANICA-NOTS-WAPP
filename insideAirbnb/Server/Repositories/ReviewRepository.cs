@@ -2,6 +2,7 @@
 using insideAirbnb.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static insideAirbnb.Shared.GraphReviews;
 
 namespace insideAirbnb.Server.Repositories
 {
@@ -12,14 +13,6 @@ namespace insideAirbnb.Server.Repositories
         public ReviewRepository(insideAirbnbContext context)
         {
             _context = context;
-        }
-
-        public record ReviewRecord(DateTime? Date, int count)
-        {
-            public override string ToString()
-            {
-                return $"{{ Date = {Date}, Count = {count} }}";
-            }
         }
 
         public async Task<GraphReviews> GetReviewsPerDate()

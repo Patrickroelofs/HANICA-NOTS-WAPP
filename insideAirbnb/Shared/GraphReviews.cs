@@ -16,5 +16,12 @@ namespace insideAirbnb.Shared
             Dates = dates;
             Counts = counts;
         }
+        public record ReviewRecord(DateTime? Date, int count)
+        {
+            public override string ToString()
+            {
+                return $"{{ Date = {Date}, Count = {count} }}";
+            }
+        }
     }
 }

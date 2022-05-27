@@ -14,14 +14,12 @@ namespace insideAirbnb.Server.Controllers
         private INeighbourhoodsRepository _neighbourhoodsRepository { get; }
         private IListingsRepository _listingsRepository { get; }
         private IReviewRepository _reviewRepository { get; }
-        private ICalendarRepository _calendarRepository { get; }
 
-        public GraphController(INeighbourhoodsRepository neighbourhoodsRepository, IListingsRepository listingsRepository, IReviewRepository reviewRepository, ICalendarRepository calendarRepository)
+        public GraphController(INeighbourhoodsRepository neighbourhoodsRepository, IListingsRepository listingsRepository, IReviewRepository reviewRepository)
         {
             _neighbourhoodsRepository = neighbourhoodsRepository;
             _listingsRepository = listingsRepository;
             _reviewRepository = reviewRepository;
-            _calendarRepository = calendarRepository;
         }
 
         [HttpGet("neighbourhoods")]

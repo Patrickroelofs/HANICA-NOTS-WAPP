@@ -28,7 +28,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddScoped<INeighbourhoodsRepository, NeighbourhoodsRepository>();
 builder.Services.AddScoped<IListingsRepository, ListingRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
-builder.Services.AddScoped<ICalendarRepository, CalendarRepository>();
 builder.Services.AddOptions();
 
 

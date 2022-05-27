@@ -15,5 +15,12 @@ namespace insideAirbnb.Shared
             PropertyTypes = propertyTypes;
             Counts = counts;
         }
+        public record PropertyRecord(string PropertyType, int count)
+        {
+            public override string ToString()
+            {
+                return $"{{ PropertyType = {PropertyType}, Count = {count} }}";
+            }
+        }
     }
 }
