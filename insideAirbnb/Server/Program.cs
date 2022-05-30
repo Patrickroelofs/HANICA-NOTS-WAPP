@@ -35,8 +35,6 @@ builder.Services.AddScoped<INeighbourhoodsRepository, NeighbourhoodsRepository>(
 builder.Services.AddScoped<IListingsRepository, ListingRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddSingleton<IResponseCacheService, ResponseCacheService>();
-builder.Services.AddOptions();
-
 
 var app = builder.Build();
 
@@ -65,5 +63,11 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
+
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+    await next();
+});
 
 app.Run();

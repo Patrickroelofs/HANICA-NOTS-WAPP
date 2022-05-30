@@ -1,4 +1,5 @@
-﻿using insideAirbnb.Server.Repositories;
+﻿using insideAirbnb.Server.Cache;
+using insideAirbnb.Server.Repositories;
 using insideAirbnb.Server.Repositories.interfaces;
 using insideAirbnb.Shared;
 using Microsoft.AspNetCore.Authorization;
@@ -23,6 +24,7 @@ namespace insideAirbnb.Server.Controllers
         }
 
         [HttpGet("neighbourhoods")]
+        [Cached(600)]
         public async Task<GraphNeighbourhoods> GetNeighbourhoodStats()
         {
             List<Neighbourhoods> neighbourhoods = await _neighbourhoodsRepository.GetNeighbourhoods();
@@ -39,6 +41,7 @@ namespace insideAirbnb.Server.Controllers
         }
 
         [HttpGet("property-types")]
+        [Cached(600)]
         public async Task<GraphProperties> GetPropertyTypesStats()
         {
             var result = await _listingsRepository.GetAmountPropertyTypes();
@@ -47,6 +50,7 @@ namespace insideAirbnb.Server.Controllers
         }
 
         [HttpGet("room-types")]
+        [Cached(600)]
         public async Task<GraphRooms> GetRoomTypesStats()
         {
             var result = await _listingsRepository.GetAmountRoomTypes();
@@ -55,6 +59,7 @@ namespace insideAirbnb.Server.Controllers
         }
 
         [HttpGet("reviews")]
+        [Cached(600)]
         public async Task<GraphReviews> GetReviewsPerDateStats()
         {
             var result = await _reviewRepository.GetReviewsPerDate();
