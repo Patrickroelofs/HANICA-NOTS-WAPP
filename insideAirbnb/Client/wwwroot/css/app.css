@@ -1,4 +1,19 @@
-﻿.valid.modified:not([type=checkbox]) {
+﻿.loginDisplay {
+    text-align: center;
+    max-width: 345px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: white;
+    z-index: 100;
+    margin-left: 12px;
+    margin-top: 12px;
+    padding: 4px;
+    padding-top: 12px;
+    border-radius: 6px;
+}
+
+.valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;
 }
 

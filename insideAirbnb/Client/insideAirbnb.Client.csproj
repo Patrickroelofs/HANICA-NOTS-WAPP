@@ -16,14 +16,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.3" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.5" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" Version="6.0.5" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\insideAirbnb.Shared.csproj" />
   </ItemGroup>
+
+    <ItemGroup>
+        <TrimmerRootAssembly Include="Microsoft.Authentication.WebAssembly.Msal" />
+	</ItemGroup>
 
 </Project>

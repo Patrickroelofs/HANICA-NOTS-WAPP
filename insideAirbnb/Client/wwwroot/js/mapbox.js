@@ -11,7 +11,9 @@
             map.addSource('listings', {
                 type: 'geojson',
                 data: listingsURL,
-                cluster: false,
+                cluster: true,
+                clusterMaxZoom: 12,
+                clusterRadius: 45
             });
 
             map.addSource('neighbourhoods', {
@@ -39,6 +41,45 @@
                     'fill-outline-color': 'rgba(0, 0, 0, 1)'
                 }
             })
+
+            map.addLayer({
+                id: 'clusters',
+                type: 'circle',
+                source: 'listings',
+                filter: ['has', 'point_count'],
+                paint: {
+                    'circle-color': [
+                        'step',
+                        ['get', 'point_count'],
+                        '#FFCD56',
+                        100,
+                        '#FFB003',
+                        650,
+                        '#FF8300'
+                    ],
+                    'circle-radius': [
+                        'step',
+                        ['get', 'point_count'],
+                        25,
+                        100,
+                        35,
+                        750,
+                        50
+                    ]
+                }
+            });
+
+            map.addLayer({
+                id: 'cluster-count',
+                type: 'symbol',
+                source: 'listings',
+                filter: ['has', 'point_count'],
+                layout: {
+                    'text-field': '{point_count_abbreviated}',
+                    'text-font': ['Arial Unicode MS Bold'],
+                    'text-size': 12
+                }
+            });
             
             map.addControl(new mapboxgl.NavigationControl());
 

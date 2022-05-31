@@ -1,10 +1,10 @@
-﻿.graphs {
-    height: 500px;
-}
-
-#neighbourhoodsGraph {
+﻿ #neighbourhoodsGraph {
     width: 400px;
     height: 400px;
+}
+
+.container {
+    margin-top: 128px;
 }
 
 h1 {

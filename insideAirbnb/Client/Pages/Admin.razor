@@ -6,9 +6,14 @@
 @attribute [Authorize]
 @attribute [Authorize(Roles = "administrator")]
 
-<h1>Admin</h1>
+<div class="loginDisplay">
+    <LoginDisplay />
+</div>
+
+
 
 <div class="container graphs">
+    <h1>Admin</h1>
     <div class="row">
         <div class="col-6">
             <h5>Average price of all listings</h5>

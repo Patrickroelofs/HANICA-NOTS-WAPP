@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace insideAirbnb.Server.Controllers
 {
-//    [Authorize(Roles = "administrator")]
+    //[Authorize(Roles = "administrator")]
     [ApiController]
     [Route("[controller]")]
     public class GraphController : ControllerBase

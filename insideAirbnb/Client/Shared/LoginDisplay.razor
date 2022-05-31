@@ -7,8 +7,17 @@
 <AuthorizeView>
     <Authorized>
         Hello, @context.User.Identity?.Name!
-        <button class="nav-link btn btn-link" @onclick="BeginLogout">Log out</button>
-        <a href="/admin">Admin</a>
+        <div class="row">
+            <div class="col-4">
+                <a href="/" class="nav-link btn btn-link">App</a>
+            </div>
+            <div class="col-4">
+                <a href="/admin" class="nav-link btn btn-link">Admin</a>
+            </div>
+            <div class="col-4">
+                <button class="nav-link btn btn-link" @onclick="BeginLogout">Log out</button>
+            </div>
+        </div>
     </Authorized>
     <NotAuthorized>
         <a href="authentication/login">Log in</a>

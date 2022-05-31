@@ -1,0 +1,34 @@
+{
+  "https://localhost:44339/listings/id/23601178" : {
+    "transaction" : "https://localhost:44339/listings/id/23601178",
+    "sampleCount" : 1075,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 7.158139534883724,
+    "medianResTime" : 7.0,
+    "minResTime" : 6.0,
+    "maxResTime" : 32.0,
+    "pct1ResTime" : 8.0,
+    "pct2ResTime" : 8.0,
+    "pct3ResTime" : 9.0,
+    "throughput" : 30.710775911324422,
+    "receivedKBytesPerSec" : 42.76715473588733,
+    "sentKBytesPerSec" : 4.46865782303451
+  },
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 1075,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 7.158139534883724,
+    "medianResTime" : 7.0,
+    "minResTime" : 6.0,
+    "maxResTime" : 32.0,
+    "pct1ResTime" : 8.0,
+    "pct2ResTime" : 8.0,
+    "pct3ResTime" : 9.0,
+    "throughput" : 30.710775911324422,
+    "receivedKBytesPerSec" : 42.76715473588733,
+    "sentKBytesPerSec" : 4.46865782303451
+  }
+}

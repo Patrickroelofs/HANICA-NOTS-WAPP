@@ -5,9 +5,10 @@
     <button type="button" class="btn btn-primary backbutton" onclick="@BackButton"><i class="bi bi-chevron-left"></i>Back</button>
 
     <h2>@SelectedListing.Name</h2>
-    <div>
-        <a href="@SelectedListing.ListingUrl" target="_blank">View Listing on Airbnb</a>
+    <div style="background-image: url('@SelectedListing.PictureUrl'); width: 100%; height: 250px; background-size: cover; background-position: center center;">
         
+    </div>
+    <div>
         <a href="@SelectedListing.HostUrl" target="_blank" class="sidebar-host">
             <div class="hostname">
                 <span class="host">@SelectedListing.HostName</span>
@@ -20,12 +21,10 @@
         </a>
         
         <p class="price">$@SelectedListing.Price per night</p>
-
-        <AuthorizeView Roles="administrator">
-            <Authorized>
-                <Graphs />
-            </Authorized>
-        </AuthorizeView>
+        <p><strong>Neighbourhood</strong><br/>@SelectedListing.NeighbourhoodCleansed</p>
+        <p><strong>Reviews</strong><br/>@SelectedListing.NumberOfReviews (@SelectedListing.NumberOfReviewsL30d in the last 30 days)</p>
+        <p><strong>Room type</strong><br/>@SelectedListing.RoomType</p>
+        <a href="@SelectedListing.ListingUrl" target="_blank">View Listing on Airbnb</a>
     </div>
 </div>
 

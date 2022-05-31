@@ -3,13 +3,11 @@
     right: 0;
     top: 0;
     width: 550px;
-    height: auto;
+    height: 100vh;
     background: white;
     z-index: 100;
-    margin-top: 12px;
-    margin-right: 48px;
-    border-radius: 6px;
     padding: 6px;
+    overflow-y: scroll;
 }
 
 .sidebar-host {
