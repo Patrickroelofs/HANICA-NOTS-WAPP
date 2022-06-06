@@ -1,6 +1,5 @@
 ﻿using insideAirbnb.Server.Cache;
 using insideAirbnb.Server.Repositories;
-using insideAirbnb.Server.Repositories.interfaces;
 using insideAirbnb.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +37,13 @@ namespace insideAirbnb.Server.Controllers
             }
 
             return new GraphNeighbourhoods(prices, formattedNeighbourhoods);
+        }
+
+        [HttpGet("neighbourhood")]
+        [Cached(600)]
+        public async Task<int> GetNeighbourhoodStats(string neighbourhood)
+        {
+            return await _listingsRepository.GetAveragePriceByNeighbourhood(neighbourhood);
         }
 
         [HttpGet("property-types")]

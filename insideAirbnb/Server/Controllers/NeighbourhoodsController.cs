@@ -1,7 +1,7 @@
 ﻿using insideAirbnb.Shared;
 using Microsoft.AspNetCore.Mvc;
-using insideAirbnb.Server.Repositories.interfaces;
 using insideAirbnb.Server.Cache;
+using insideAirbnb.Server.Repositories;
 
 namespace insideAirbnb.Server.Controllers
 {
@@ -27,7 +27,7 @@ namespace insideAirbnb.Server.Controllers
         [Cached(600)]
         public ActionResult<dynamic> getGeoJSON()
         {
-            var bytes = System.IO.File.ReadAllBytes("/neighbourhoods.geojson");
+            var bytes = System.IO.File.ReadAllBytes("wwwroot/neighbourhoods.geojson");
 
             return File(bytes, "application/json", "neighbourhoods");
         }

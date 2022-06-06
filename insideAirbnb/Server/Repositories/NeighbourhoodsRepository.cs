@@ -1,5 +1,4 @@
-﻿using insideAirbnb.Server.Repositories.interfaces;
-using insideAirbnb.Shared;
+﻿using insideAirbnb.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

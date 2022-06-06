@@ -11,7 +11,7 @@
 <Filter></Filter>
 @if(ShowSelectedListing && SelectedListing != null)
 {
-    <Sidebar SelectedListing="@SelectedListing" BackButton="@HandleBackButton"></Sidebar>
+    <Sidebar SelectedListing="@SelectedListing" BackButton="@HandleBackButton" AverageNeighbourhoodPrice="@AverageNeighbourhoodPrice"></Sidebar>
 }
 
 
@@ -24,7 +24,8 @@
     private DotNetObjectReference<Map> _reference;
     private HttpClient Client { get; set; }
     public bool ShowSelectedListing;
-    public Listings SelectedListing; 
+    public Listings SelectedListing;
+    private int AverageNeighbourhoodPrice;
 
     protected override async Task OnInitializedAsync()
     {
@@ -51,6 +52,8 @@
     public async Task PointClicked(int id)
     {
         var listing = await Client.GetFromJsonAsync<Listings>($"{_configuration["apiUrl"]}/listings/id/{id}");
+        AverageNeighbourhoodPrice = await Client.GetFromJsonAsync<int>($"/graph/neighbourhood?neighbourhood={@listing.NeighbourhoodCleansed}");
+        
         SelectedListing = listing;
         ShowSelectedListing = true;
         StateHasChanged();

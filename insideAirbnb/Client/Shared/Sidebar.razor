@@ -24,6 +24,7 @@
         <p><strong>Neighbourhood</strong><br/>@SelectedListing.NeighbourhoodCleansed</p>
         <p><strong>Reviews</strong><br/>@SelectedListing.NumberOfReviews (@SelectedListing.NumberOfReviewsL30d in the last 30 days)</p>
         <p><strong>Room type</strong><br/>@SelectedListing.RoomType</p>
+        <p><strong>Average Price in Neighbourhood</strong><br />$@AverageNeighbourhoodPrice</p>
         <a href="@SelectedListing.ListingUrl" target="_blank">View Listing on Airbnb</a>
     </div>
 </div>
@@ -36,4 +37,6 @@
     public Listings SelectedListing { get; set; }
     [Parameter]
     public Action BackButton { get; set; }
+    [Parameter]
+    public int AverageNeighbourhoodPrice { get; set; }
 }

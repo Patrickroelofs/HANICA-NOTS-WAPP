@@ -1,5 +1,4 @@
-﻿using insideAirbnb.Server.Repositories.interfaces;
-using insideAirbnb.Shared;
+﻿using insideAirbnb.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
@@ -85,12 +84,12 @@ namespace insideAirbnb.Server.Repositories
             return await _context.Listings.Where(location => location.Id == id).Select(location => location).AsNoTracking().FirstOrDefaultAsync();
         }
         
-        public async Task<int> GetAveragePriceByNeighbourhood(string neighbourhood)
+        public Task<int> GetAveragePriceByNeighbourhood(string neighbourhood)
         {
             var averagePrice = _context.Listings.Where(c => c.NeighbourhoodCleansed == neighbourhood && c.Price != null)
                 .Average(c => Convert.ToInt32(c.Price));
 
-            return (int)averagePrice;
+            return Task.FromResult((int)averagePrice);
         }
 
         public async Task<GraphProperties> GetAmountPropertyTypes()

@@ -1,7 +1,7 @@
 ﻿using insideAirbnb.Shared;
 using Microsoft.AspNetCore.Mvc;
 
-namespace insideAirbnb.Server.Repositories.interfaces
+namespace insideAirbnb.Server.Repositories
 {
     public interface IListingsRepository
     {

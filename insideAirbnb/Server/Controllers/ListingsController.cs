@@ -4,8 +4,8 @@ using GeoJSON.Net.Feature;
 using GeoJSON.Net.Geometry;
 using System.Globalization;
 using insideAirbnb.Server.Helpers;
-using insideAirbnb.Server.Repositories.interfaces;
 using insideAirbnb.Server.Cache;
+using insideAirbnb.Server.Repositories;
 
 namespace insideAirbnb.Server.Controllers
 {
